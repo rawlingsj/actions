@@ -57,6 +57,11 @@ inputs:
       If automount-src is found, create a copy at this location (inside container)
     default: /work
 
+  output-filename:
+    description: |
+      The tarball output filename
+    default: output.tar
+
 runs:
   using: docker
   image:  "docker://ghcr.io/chainguard-dev/apko:canary"
@@ -75,5 +80,5 @@ runs:
       /ko-app/apko build \
         ${{ inputs.use-docker-mediatypes && '--use-docker-mediatypes' }} \
         ${{ inputs.debug && '--debug' }} \
-        ${{ inputs.config }} ${{ inputs.tag }} output.tar $keys $archs
+        ${{ inputs.config }} ${{ inputs.tag }} ${{inputs.output-filename}} $keys $archs
       echo EXIT CODE: $?
